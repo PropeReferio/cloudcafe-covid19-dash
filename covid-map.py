@@ -24,17 +24,24 @@ for num_cases in confirmed[yesterdays_date]:
 for num_deaths in deaths[yesterdays_date]:
     size = num_cases/500
     death_size.append(size) if size > 10 else death_size.append(10)
-# for place in deaths[['Province/State','Country/Region']]:
-#     if place is float:
-#     deaths_names.append()
-print(len(confirmed))
 
+confirmed_names = []
+deaths_names = []
+def names_column(frame, lst): #Makes a new column called Name
+    for i in range(len(frame)):
+        if type(frame['Province/State'][i]) is str:
+            lst.append(frame['Province/State'][i])
+        else:
+            lst.append(frame['Country/Region'][i])
+    frame['Name'] = df(lst)
 
+names_column(confirmed, confirmed_names)
+names_column(deaths, deaths_names)
 
-confirmed['confirmed_size'] = df(confirmed_size)
-deaths['death_size'] = df(death_size)
 # confirmed['Name'] = df(confirmed_names)
 # deaths['Name'] = df(deaths_names)
+confirmed['confirmed_size'] = df(confirmed_size)
+deaths['death_size'] = df(death_size)
 
 map_confirmed = go.Scattermapbox(
         customdata = confirmed[yesterdays_date
@@ -42,10 +49,10 @@ map_confirmed = go.Scattermapbox(
         name='Confirmed Cases',
         lon=confirmed['Long'],
         lat=confirmed['Lat'],
-        text=confirmed['Country/Region'],
+        text=confirmed['Name'],
         hovertemplate=
             "<b>%{text}</b><br>" +
-            "Confirmed: %{customdata}<br>" +
+            "Confirmed Cases: %{customdata}<br>" +
             "<extra></extra>",
         mode='markers',
         showlegend=True,
@@ -62,10 +69,10 @@ map_deaths = go.Scattermapbox(
         name='Deaths',
         lon=deaths['Long'],
         lat=deaths['Lat'],
-        text=deaths['Country/Region'],
+        text=deaths['Name'],
         hovertemplate=
             "<b>%{text}</b><br>" +
-            "Confirmed: %{customdata}<br>" +
+            "Deaths: %{customdata}<br>" +
             "<extra></extra>",
         mode='markers',
         showlegend=True,
@@ -92,4 +99,4 @@ layout = go.Layout(
 
 data = [map_confirmed, map_deaths]
 fig = go.Figure(data=data, layout=layout)
-# fig.show()
+fig.show()
