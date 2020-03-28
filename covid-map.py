@@ -27,6 +27,8 @@ for num_deaths in deaths[yesterdays_date]:
 # for place in deaths[['Province/State','Country/Region']]:
 #     if place is float:
 #     deaths_names.append()
+print(len(confirmed))
+
 
 
 confirmed['confirmed_size'] = df(confirmed_size)
@@ -90,4 +92,4 @@ layout = go.Layout(
 
 data = [map_confirmed, map_deaths]
 fig = go.Figure(data=data, layout=layout)
-fig.show()
+# fig.show()
