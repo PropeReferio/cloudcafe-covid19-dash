@@ -1,0 +1,13 @@
+#navbar, #banner{
+    text-align: center;
+    background-color: lightblue;
+}
+#navbar ul{
+    list-style-type: none;
+}
+#navbar ul a{
+    text-decoration: none;
+}
+#navbar ul li{
+    display: inline-block;
+}
